@@ -1,0 +1,31 @@
+<!-- https://plotly.com/javascript/getting-started/ -->
+<html>
+    <head>
+        <script src="https://cdn.plot.ly/plotly-2.24.1.min.js" charset="utf-8"></script>
+        <script>
+            let data = window.fetch("http://localhost:3333/actors");
+            data.then(response=>{
+                response.json().then(obj=>{
+                    console.log("obj", obj);
+                    let x = obj.map(el=> el.full_name);
+                    let y = obj.map(el=> el.total);
+                    var data = [
+                        {
+                            "x": x,
+                            "y": y,
+                            "type": 'bar'
+                        }
+                    ];
+                    let chart_div = document.getElementById('chart_div');
+                    Plotly.newPlot(chart_div, data);
+                });
+            });
+        </script>
+    </head>
+    <body style="font-family: arial;text-align: center;">
+        <h1>Bar chart using Plotly</h1>
+        <h2>Backend with node.js and data source MySQL</h2>
+        <p>Customer x payments ($)</p>
+        <div id="chart_div" style="width:100%;height:50%;"></div>
+    </body>
+</html>
